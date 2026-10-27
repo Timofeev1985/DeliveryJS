@@ -17,6 +17,8 @@ const loginInput = document.querySelector("#login");
 const userName = document.querySelector(".user-name");
 const buttonOut = document.querySelector(".button-out");
 
+const cardsRestaurants = document.querySelector(".cards-restaurants");
+
 let login = localStorage.getItem("delivery");
 function toggleModalAuth() {
   modalAuth.classList.toggle("is-open");
@@ -48,6 +50,7 @@ function notAutorized() {
     console.dir(login);
     if (login == "") {
       loginInput.style.border = "1px solid red";
+      loginInput.placeholder = "Введите логин";
     } else {
       loginInput.style.border = "1px solid black";
       localStorage.setItem("delivery", login);
@@ -71,3 +74,34 @@ function checkOut() {
   }
 }
 checkOut();
+//day 2
+function createCardRestaurant() {
+  const card = `
+  <a class="card card-restaurant">
+						<img src="img/pizza-plus/preview.jpg" alt="image" class="card-image"/>
+						<div class="card-text">
+							<div class="card-heading">
+								<h3 class="card-title">Пицца плюс</h3>
+								<span class="card-tag tag">50 мин</span>
+							</div>
+							<!-- /.card-heading -->
+							<div class="card-info">
+								<div class="rating">
+									4.5
+								</div>
+								<div class="price">От 900 ₽</div>
+								<div class="category">Пицца</div>
+							</div>
+							<!-- /.card-info -->
+						</div>
+						<!-- /.card-text -->
+					</a>
+ `;
+  cardsRestaurants.insertAdjacentHTML("beforeend", card);
+}
+createCardRestaurant();
+function openGoods(event) {
+  const target = event.target;
+  console.log(event);
+}
+cardsRestaurants.addEventListener("click", openGoods);
