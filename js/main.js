@@ -1,14 +1,7 @@
+"use strict";
 const cartButton = document.querySelector("#cart-button");
 const modal = document.querySelector(".modal");
 const close = document.querySelector(".close");
-
-cartButton.addEventListener("click", toggleModal);
-close.addEventListener("click", toggleModal);
-
-function toggleModal() {
-  modal.classList.toggle("is-open");
-}
-//day 1
 const buttonAuth = document.querySelector(".button-auth");
 const modalAuth = document.querySelector(".modal-auth");
 const closeAuth = document.querySelector(".close-auth");
@@ -16,14 +9,21 @@ const logInForm = document.querySelector("#logInForm");
 const loginInput = document.querySelector("#login");
 const userName = document.querySelector(".user-name");
 const buttonOut = document.querySelector(".button-out");
-
 const cardsRestaurants = document.querySelector(".cards-restaurants");
+const containerPromo = document.querySelector(".container-promo");
+const menu = document.querySelector(".menu");
+const restaurants = document.querySelector(".restaurants");
+const logo = document.querySelector(".logo");
+const cardsMenu = document.querySelector(".cards-menu");
 
 let login = localStorage.getItem("delivery");
+
+function toggleModal() {
+  modal.classList.toggle("is-open");
+}
 function toggleModalAuth() {
   modalAuth.classList.toggle("is-open");
 }
-
 function autorized() {
   console.log("Авторизован");
   function logOut() {
@@ -73,8 +73,6 @@ function checkOut() {
     notAutorized();
   }
 }
-checkOut();
-//day 2
 function createCardRestaurant() {
   const card = `
   <a class="card card-restaurant">
@@ -99,9 +97,67 @@ function createCardRestaurant() {
  `;
   cardsRestaurants.insertAdjacentHTML("beforeend", card);
 }
-createCardRestaurant();
+function createCardGood() {
+  const card = document.createElement("div");
+
+  card.className = "card";
+  console.log(card);
+  card.insertAdjacentHTML(
+    "beforeend",
+    `
+              <img
+                src="img/pizza-plus/pizza-classic.jpg"
+                alt="image"
+                class="card-image"
+              />
+              <div class="card-text">
+                <div class="card-heading">
+                  <h3 class="card-title card-title-reg">Пицца Классика</h3>
+                </div>
+                <div class="card-info">
+                  <div class="ingredients">
+                    Соус томатный, сыр «Моцарелла», сыр «Пармезан», ветчина,
+                    салями, грибы.
+                  </div>
+                </div>
+                <div class="card-buttons">
+                  <button class="button button-primary button-add-cart">
+                    <span class="button-card-text">В корзину</span>
+                    <span class="button-cart-svg"></span>
+                  </button>
+                  <strong class="card-price-bold">510 ₽</strong>
+                </div>
+              </div>
+  `,
+  );
+  cardsMenu.insertAdjacentElement("beforeend", card);
+}
 function openGoods(event) {
   const target = event.target;
-  console.log(event);
+  const restaurant = target.closest(".card-restaurant");
+  if (restaurant) {
+    containerPromo.classList.toggle("hide");
+    menu.classList.toggle("hide");
+    restaurants.classList.toggle("hide");
+    cardsMenu.textContent = "";
+    createCardGood();
+    createCardGood();
+    createCardGood();
+  }
 }
+
+cartButton.addEventListener("click", toggleModal);
+close.addEventListener("click", toggleModal);
 cardsRestaurants.addEventListener("click", openGoods);
+logo.addEventListener("click", () => {
+  containerPromo.classList.remove("hide");
+  menu.classList.add("hide");
+  restaurants.classList.remove("hide");
+});
+checkOut();
+createCardRestaurant();
+createCardRestaurant();
+createCardRestaurant();
+createCardRestaurant();
+createCardRestaurant();
+createCardRestaurant();
